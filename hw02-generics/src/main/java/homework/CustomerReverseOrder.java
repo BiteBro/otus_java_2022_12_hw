@@ -1,16 +1,17 @@
 package homework;
 
 
-public class CustomerReverseOrder {
+import java.util.Deque;
+import java.util.LinkedList;
 
-    //todo: 2. надо реализовать методы этого класса
-    //надо подобрать подходящую структуру данных, тогда решение будет в "две строчки"
+public class CustomerReverseOrder {
+    private Deque<Customer> deque = new LinkedList<>();
 
     public void add(Customer customer) {
-
+        deque.add(customer);
     }
 
     public Customer take() {
-        return null; // это "заглушка, чтобы скомилировать"
+        return deque.pollLast();
     }
 }
