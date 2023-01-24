@@ -5,7 +5,7 @@ import java.util.Deque;
 import java.util.LinkedList;
 
 public class CustomerReverseOrder {
-    private Deque<Customer> deque = new LinkedList<>();
+    private final Deque<Customer> deque = new LinkedList<>();
 
     public void add(Customer customer) {
         deque.add(customer);
