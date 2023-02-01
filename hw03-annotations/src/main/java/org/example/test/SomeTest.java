@@ -10,7 +10,7 @@ import java.util.List;
 public class SomeTest {
 
     @Before
-    public void before(){
+    public void beforeA(){
         List<Integer> list = new ArrayList<>();
     }
     @Test
@@ -18,38 +18,52 @@ public class SomeTest {
         int[] ints = {1,2,3};
         int i = ints[1];
     }
+    @After
+    public void afterA(){
+        List<Integer> list = null;
+    }
+
+
+    @Before
+    public void beforeB(){
+        List<Integer> list = new ArrayList<>();
+    }
     @Test
     public void testB(){
         int[] ints = {1,2,3};
-        int i = ints[3];
+        int i = ints[5];
+    }
+    @After
+    public void afterB(){
+        List<Integer> list = null;
+    }
+
+
+    @Before
+    public void beforeC(){
+        List<Integer> list = new ArrayList<>();
     }
     @Test
     public void testC(){
         int[] ints = {1,2,3};
         int i = ints[0];
     }
+    @After
+    public void afterC(){
+        List<Integer> list = null;
+    }
+
+    @Before
+    public void beforeD(){
+        List<Integer> list = new ArrayList<>();
+    }
     @Test
     public void testD(){
         int[] ints = {1,2,3};
-        int i = ints[4];
-    }
-    @Test
-    public void testE(){
-        int[] ints = {1,2,3};
-        int i = ints[1];
-    }
-    @Test
-    public void testF(){
-        int[] ints = {1,2,3};
-        int i = ints[3];
-    }
-    @Test
-    public void testG(){
-        int[] ints = {1,2,3};
-        int i = ints[0];
+        int i = ints[7];
     }
     @After
-    public void after(){
+    public void afterD(){
         List<Integer> list = null;
     }
 }
