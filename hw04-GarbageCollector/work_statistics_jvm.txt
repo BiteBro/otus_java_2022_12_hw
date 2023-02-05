@@ -1,0 +1,21 @@
+
+        Таблица производительности JVM шаг 256Mb.
+                    G1GC
+                до оптимизации      после оптимизации
+    Xms=Xmx Mb.     time                  time
+1       256     OutOfMemoryError    msec:1616
+2       512     msec:7894           msec:1314
+3       768     msec:7348               msec:1269
+4       1024    msec:7197           msec:1299
+5       1280    msec:7105           msec:1304
+6       1536    msec:7011           msec:1338
+7       1792        msec:6566       msec:1357
+8       2048    msec:6880           msec:1318
+9       2304    msec:6973           msec:1300
+10      2560    msec:6687           msec:1357
+11      2816    msec:6913           msec:1336
+12      3072    msec:6721           msec:1300
+13      3328    msec:6601           msec:1286
+14      3584    msec:6668           msec:1332
+15      3840    msec:6767           msec:1324
+16      4096    msec:6839           msec:1332
