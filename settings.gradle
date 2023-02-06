@@ -3,4 +3,5 @@ rootProject.name = 'otus_java_2022_12_hw'
 include 'hw01-gradle'
 include 'hw02-generics'
 include 'hw03-annotations'
+include 'hw04-GarbageCollector'
 
