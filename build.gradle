@@ -33,8 +33,3 @@ tasks.register("managedVersions") {
     }
 }
 
-/*
-//./gradlew -q hello
-tasks.register("hello") { hello ->
-    println 'Hello world!'
-}*/
