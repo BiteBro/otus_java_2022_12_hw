@@ -4,10 +4,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Ioc {
     private Ioc(){}
@@ -18,32 +15,27 @@ public class Ioc {
     }
     static class DemoInvocationHandler implements InvocationHandler {
         private final TestLoggingInterface testInter;
-        private final List<Method> methods;
+        private final Set<String> methods;
+
         DemoInvocationHandler(TestLoggingInterface someInter, Class<? extends Annotation> annotation){
             this.testInter = someInter;
             this.methods = getAnnotatedMethod(someInter.getClass(), annotation);
         }
-
-        private List<Method> getAnnotatedMethod(Class<?> clazz, Class<? extends Annotation> annotation){
-            List<Method> methods = new ArrayList<>();
+        @Override
+        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+            if (methods.contains(method.getName() + Arrays.toString(method.getParameters()))){
+                System.out.println("\nExecuted method: " + method.getName() + ", param:" + Arrays.toString(args));
+            }
+            return method.invoke(testInter, args);
+        }
+        private Set<String> getAnnotatedMethod(Class<?> clazz, Class<? extends Annotation> annotation){
+            Set<String> methods = new HashSet<>();
             for(Method m : clazz.getDeclaredMethods()){
                 if (m.getAnnotation(annotation)!=null){
-                    methods.add(m);
+                    methods.add(m.getName() + Arrays.toString(m.getParameters()));
                 }
             }
             return methods;
-        }
-
-        @Override
-        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-            for(Method m : methods){
-                if (m.getName().equals(method.getName())){
-                    if (Arrays.equals(m.getParameterTypes(), method.getParameterTypes())){
-                        System.out.println("\nExecuted method: " + m.getName() + ", param:" + Arrays.toString(args));
-                    }
-                }
-            }
-            return method.invoke(testInter, args);
         }
     }
 }

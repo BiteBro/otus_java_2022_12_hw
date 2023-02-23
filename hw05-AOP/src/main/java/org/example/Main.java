@@ -6,9 +6,10 @@ public class Main {
         System.out.println("\nWork result:");
         System.out.println("**********************************************");
         tli.addition(1);
-        tli.additionA(2,4);
-        tli.additionB(3,5, 7);
-        tli.additionS("Hello");
+        tli.additionA(1);
+        tli.addition(2,4);
+        tli.addition(3,5, 7);
+        tli.addition("Hello");
         System.out.println("\n**********************************************\n");
     }
 }
