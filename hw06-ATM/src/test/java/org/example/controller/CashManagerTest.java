@@ -27,7 +27,7 @@ public class CashManagerTest {
     @Test   // Проверка на отрицательное число с выбросом исключения
     public void testPutCashWrongValue() {
         System.out.println("********** putCashWrongValue() ");
-        Cash wrongValue = new CashImpl(MoneyRUB.FIFTY, -11);
+        Cash wrongValue = new CashImpl(Money.FIFTY, -11);
         try {
             manager.putCash(wrongValue);
             fail();
@@ -40,16 +40,16 @@ public class CashManagerTest {
         System.out.println("********** putCashNoDuplicate() ");
         Set<Cash> expResult = new TreeSet<>(Comparator.comparingInt(Cash::getNominal).reversed());
 
-        expResult.add(new CashImpl(MoneyRUB.FIFTY, 7));
-        expResult.add(new CashImpl(MoneyRUB.FIFTY, 4));
-        expResult.add(new CashImpl(MoneyRUB.FIVE_HUNDRED, 7));
-        expResult.add(new CashImpl(MoneyRUB.ONE_HUNDRED, 3));
+        expResult.add(new CashImpl(Money.FIFTY, 7));
+        expResult.add(new CashImpl(Money.FIFTY, 4));
+        expResult.add(new CashImpl(Money.FIVE_HUNDRED, 7));
+        expResult.add(new CashImpl(Money.ONE_HUNDRED, 3));
 
-        manager.putCash(new CashImpl(MoneyRUB.FIFTY, 8));
-        manager.putCash(new CashImpl(MoneyRUB.FIVE_HUNDRED, 3));
-        manager.putCash(new CashImpl(MoneyRUB.FIVE_HUNDRED, 4));
-        manager.putCash(new CashImpl(MoneyRUB.ONE_HUNDRED, 3));
-        manager.putCash(new CashImpl(MoneyRUB.ONE_HUNDRED, 3));
+        manager.putCash(new CashImpl(Money.FIFTY, 8));
+        manager.putCash(new CashImpl(Money.FIVE_HUNDRED, 3));
+        manager.putCash(new CashImpl(Money.FIVE_HUNDRED, 4));
+        manager.putCash(new CashImpl(Money.ONE_HUNDRED, 3));
+        manager.putCash(new CashImpl(Money.ONE_HUNDRED, 3));
 
         Set<Cash> result = manager.popAllCash();
 
@@ -61,15 +61,15 @@ public class CashManagerTest {
         System.out.println("********** putCashValidateQuantity() ");
         Set<Cash> expResult = new TreeSet<>(Comparator.comparingInt(Cash::getNominal).reversed());
 
-        expResult.add(new CashImpl(MoneyRUB.FIFTY, 17));
-        expResult.add(new CashImpl(MoneyRUB.ONE_HUNDRED, 13));
+        expResult.add(new CashImpl(Money.FIFTY, 17));
+        expResult.add(new CashImpl(Money.ONE_HUNDRED, 13));
 
-        manager.putCash(new CashImpl(MoneyRUB.FIFTY, 4));
-        manager.putCash(new CashImpl(MoneyRUB.FIFTY, 5));
-        manager.putCash(new CashImpl(MoneyRUB.FIFTY, 8));
-        manager.putCash(new CashImpl(MoneyRUB.ONE_HUNDRED, 3));
-        manager.putCash(new CashImpl(MoneyRUB.ONE_HUNDRED, 4));
-        manager.putCash(new CashImpl(MoneyRUB.ONE_HUNDRED, 6));
+        manager.putCash(new CashImpl(Money.FIFTY, 4));
+        manager.putCash(new CashImpl(Money.FIFTY, 5));
+        manager.putCash(new CashImpl(Money.FIFTY, 8));
+        manager.putCash(new CashImpl(Money.ONE_HUNDRED, 3));
+        manager.putCash(new CashImpl(Money.ONE_HUNDRED, 4));
+        manager.putCash(new CashImpl(Money.ONE_HUNDRED, 6));
 
         var expResultInt = expResult.stream().mapToInt(Cash::getQuantity).toArray();
         var resultInt = manager.popAllCash().stream().mapToInt(Cash::getQuantity).toArray();
@@ -81,7 +81,7 @@ public class CashManagerTest {
     public void testPopCashWrongValue() {
         System.out.println("********** popCash() ");
         int wrongValue = -250;
-        manager.putCash(new CashImpl(MoneyRUB.FIFTY, 11));
+        manager.putCash(new CashImpl(Money.FIFTY, 11));
 
         try {
             manager.popCash(wrongValue);
@@ -95,7 +95,7 @@ public class CashManagerTest {
     public void testPopCashLargeValue() {
         System.out.println("********** popCash() ");
         int largeValue = 503350;
-        Cash firstCash = new CashImpl(MoneyRUB.FIFTY, 11);
+        Cash firstCash = new CashImpl(Money.FIFTY, 11);
 
         manager.putCash(firstCash);
 
@@ -110,8 +110,8 @@ public class CashManagerTest {
     public void testPopCashNoDenomination() {
         System.out.println("********** popCash() ");
         int wrongValue = 3350;
-        manager.putCash(new CashImpl(MoneyRUB.FIVE_THOUSAND, 11));
-        manager.putCash(new CashImpl(MoneyRUB.ONE_HUNDRED, 11));
+        manager.putCash(new CashImpl(Money.FIVE_THOUSAND, 11));
+        manager.putCash(new CashImpl(Money.ONE_HUNDRED, 11));
 
         try {
             manager.popCash(wrongValue);
@@ -126,16 +126,16 @@ public class CashManagerTest {
         int expIntResult = 3300;
         Set<Cash> expResult = new TreeSet<>(Comparator.comparingInt(Cash::getNominal).reversed());
 
-        manager.putCash(new CashImpl(MoneyRUB.FIFTY, 11));
-        manager.putCash(new CashImpl(MoneyRUB.FIVE_HUNDRED, 7));
-        manager.putCash(new CashImpl(MoneyRUB.ONE_HUNDRED, 3));
+        manager.putCash(new CashImpl(Money.FIFTY, 11));
+        manager.putCash(new CashImpl(Money.FIVE_HUNDRED, 7));
+        manager.putCash(new CashImpl(Money.ONE_HUNDRED, 3));
 
         Set<Cash> resultCashSet = manager.popCash(expIntResult);
         int resultCash = resultCashSet.stream().mapToInt(Cash::getTotal).sum();
         assertEquals(expIntResult, resultCash);
 
-        expResult.add(new CashImpl(MoneyRUB.FIVE_HUNDRED, 6));
-        expResult.add(new CashImpl(MoneyRUB.ONE_HUNDRED, 3));
+        expResult.add(new CashImpl(Money.FIVE_HUNDRED, 6));
+        expResult.add(new CashImpl(Money.ONE_HUNDRED, 3));
 
         assertEquals(expResult.toString(), resultCashSet.toString());
     }

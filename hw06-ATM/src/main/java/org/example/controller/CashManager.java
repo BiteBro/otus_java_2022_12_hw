@@ -30,7 +30,7 @@ public class CashManager implements Manager {
 
     @Override
     public Set<Cash> popCash(int amount) {
-        if (amount > 0 & amount <= getQuantityCash(storage.getSet())) {
+        if (amount > 0 && amount <= getQuantityCash(storage.getSet())) {
             Set<Cash> set = new TreeSet<>(Comparator.comparingInt(Cash::getNominal).reversed());
             for (Cash c : storage.getSet()) {
                 Cash ch = popKitBanknotes(c, amount);
@@ -64,7 +64,10 @@ public class CashManager implements Manager {
     private Cash popKitBanknotes(Cash c, int amount) {
         if (c.getTotal() > amount) {
             return c.createInstance(c.getMoney(), amount / c.getNominal());
-        } else return c.createInstance(c.getMoney(), c.getQuantity());
+        } else
+        {
+            return c.createInstance(c.getMoney(), c.getQuantity());
+        }
     }
 
     private int getQuantityCash(Set<Cash> cashSet) {

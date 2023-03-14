@@ -26,12 +26,12 @@ public class CashImpl implements Cash {
 
     @Override
     public int getTotal() {
-        return money.asNominal() * quantity;
+        return money.getNominal() * quantity;
     }
 
     @Override
     public int getNominal() {
-        return money.asNominal();
+        return money.getNominal();
     }
 
     @Override
@@ -47,7 +47,7 @@ public class CashImpl implements Cash {
     @Override
     public String toString() {
         return "Cash{" +
-                "nominal=" + money.asNominal() +
+                "nominal=" + money.getNominal() +
                 ", quantity=" + quantity +
                 '}';
     }

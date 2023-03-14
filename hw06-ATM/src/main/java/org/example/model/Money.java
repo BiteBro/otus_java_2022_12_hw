@@ -1,7 +1,19 @@
 package org.example.model;
 
-import java.util.List;
+public enum Money {
+    FIFTY(50),
+    ONE_HUNDRED(100),
+    FIVE_HUNDRED(500),
+    THOUSAND(1000),
+    FIVE_THOUSAND(5000);
 
-public interface Money {
-    int asNominal();
+    private final int nominal;
+
+    Money(int nominal) {
+        this.nominal = nominal;
+    }
+
+    public int getNominal() {
+        return nominal;
+    }
 }
