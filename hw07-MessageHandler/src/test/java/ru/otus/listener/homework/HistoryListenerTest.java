@@ -25,17 +25,16 @@ class HistoryListenerTest {
 
         var message = new Message.Builder(id)
                 .field10("field10")
-//TODO: раскоментировать       .field13(field13)
+                .field13(field13)
                 .build();
-
         //when
         historyListener.onUpdated(message);
-//TODO: раскоментировать        message.getField13().setData(new ArrayList<>()); //меняем исходное сообщение
-//TODO: раскоментировать        field13Data.clear(); //меняем исходный список
+        message.getField13().setData(new ArrayList<>());
+        field13Data.clear();
 
         //then
         var messageFromHistory = historyListener.findMessageById(id);
         assertThat(messageFromHistory).isPresent();
-//TODO: раскоментировать        assertThat(messageFromHistory.get().getField13().getData()).containsExactly(data);
+        assertThat(messageFromHistory.get().getField13().getData()).containsExactly(data);
     }
 }
