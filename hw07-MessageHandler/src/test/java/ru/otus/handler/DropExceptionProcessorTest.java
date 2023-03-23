@@ -22,8 +22,8 @@ public class DropExceptionProcessorTest {
     }
 
     @Test
-    @DisplayName("Drop exception test!")
-    public void dropExceptionProcessorTest(){
+    @DisplayName("Test ProcessorDropException class, method throwing an exception at an even second")
+    public void throwingExceptionProcessorTest(){
 
         Processor throwException = new ProcessorDropException(LocalDateTime.of(
                 2023, Month.MARCH,19,20,25,16));
@@ -35,6 +35,11 @@ public class DropExceptionProcessorTest {
             assertTrue(true);
         }
 
+    }
+    @Test
+    @DisplayName("Test ProcessorDropException class, method throwing exception at odd second")
+    public void nonThrowingExceptionProcessorTest(){
+
         Processor notTrowException = new ProcessorDropException(LocalDateTime.of(
                 2023, Month.MARCH,19,20,27,21));
 
@@ -45,5 +50,6 @@ public class DropExceptionProcessorTest {
         }
 
     }
+
 
 }
