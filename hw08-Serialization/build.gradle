@@ -1,17 +1,16 @@
 plugins {
     id 'java'
+    id 'idea'
 }
 
-group 'org.example'
-version 'unspecified'
-
-repositories {
-    mavenCentral()
-}
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+    implementation 'org.glassfish:jakarta.json'
 }
 
 test {
