@@ -11,7 +11,6 @@ import java.util.Optional;
 
 public class DbServiceClientImpl implements DBServiceClient {
     private static final Logger log = LoggerFactory.getLogger(DbServiceClientImpl.class);
-
     private final DataTemplate<Client> dataTemplate;
     private final TransactionRunner transactionRunner;
 
