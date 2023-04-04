@@ -7,6 +7,10 @@ include 'hw04-GarbageCollector'
 include 'hw05-AOP'
 include 'hw06-ATM'
 include 'hw07-MessageHandler'
+include 'hw08-Serialization'
 include 'hw09-jdbc:demo'
 include 'hw09-jdbc:homework'
+
+
+
 
