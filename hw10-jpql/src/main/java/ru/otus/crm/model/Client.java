@@ -5,7 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Getter
 @Setter
@@ -15,8 +17,7 @@ import java.util.Set;
 public class Client implements Cloneable {
 
     @Id
-    @SequenceGenerator(name = "client_gen", sequenceName = "client_seq",
-            initialValue = 1, allocationSize = 1)
+    @SequenceGenerator(name = "client_gen", sequenceName = "client_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "client_gen")
     @Column(name = "id")
     private Long id;
@@ -24,11 +25,12 @@ public class Client implements Cloneable {
     @Column(name = "name")
     private String name;
 
-    @OneToOne(mappedBy = "")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id")
     private Address address;
 
-    @OneToMany(mappedBy = "client")
-    private Set<Phone> phones;
+    @OneToMany(mappedBy = "client_id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Phone> phones = new ArrayList<>();
 
     public Client(String name) {
         this.id = null;
@@ -40,11 +42,11 @@ public class Client implements Cloneable {
         this.name = name;
     }
 
-    public Client(Long id, String name, Address address, Set<Phone> phones) {
+    public Client(Long id, String name, Address address, List<Phone> phones) {
         this.id = id;
         this.name = name;
         this.address = address;
-        this.phones = phones;
+        Collections.copy(phones, this.phones);
     }
 
     @Override

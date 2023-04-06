@@ -10,9 +10,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "address")
-public class Address implements Cloneable{
+public class Address implements Cloneable {
     @Id
-    @SequenceGenerator(name = "address_gen", sequenceName = "address_seq", initialValue = 1, allocationSize = 1)
+    @SequenceGenerator(name = "address_gen", sequenceName = "address_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "address_gen")
     @Column(name = "id")
     private Long id;
@@ -20,18 +20,13 @@ public class Address implements Cloneable{
     @Column(name = "street")
     private String street;
 
-    public Address(String street) {
-        this.id = null;
-        this.street = street;
-    }
-
-    public Address(Long id, String street) {
-        this.id = id;
+    public Address(Long address_id, String street) {
+        this.id = address_id;
         this.street = street;
     }
 
     @Override
-    protected Address clone(){
+    protected Address clone() {
         return new Address(this.id, this.street);
     }
 
