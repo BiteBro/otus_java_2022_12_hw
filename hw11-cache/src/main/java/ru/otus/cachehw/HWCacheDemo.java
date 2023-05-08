@@ -3,7 +3,6 @@ package ru.otus.cachehw;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 public class HWCacheDemo {
     private static final Logger logger = LoggerFactory.getLogger(HWCacheDemo.class);
 
@@ -28,6 +27,5 @@ public class HWCacheDemo {
         logger.info("getValue:{}", cache.get("1"));
         cache.remove("1");
         cache.removeListener(listener);
-
     }
 }

@@ -1,5 +1,6 @@
 package ru.otus.cachehw;
 
+import java.util.WeakHashMap;
 
 public interface HwCache<K, V> {
 

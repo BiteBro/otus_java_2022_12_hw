@@ -30,7 +30,7 @@ public class MyCache<K, V> implements HwCache<K, V> {
     public V get(K key) {
         V value = this.cache.get(key);
         executeListeners(key, value, "GET");
-        return value;
+        return  value;
     }
 
     @Override
