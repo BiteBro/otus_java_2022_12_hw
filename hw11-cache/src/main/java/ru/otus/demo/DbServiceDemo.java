@@ -50,7 +50,7 @@ public class DbServiceDemo {
         log.info("clientUpdated:{}", clientUpdated);
 
         log.info("All clients");
-        while(true){
+
         dbServiceClient.findAll().forEach(client -> log.info("client:{}", client));
-    }}
+    }
 }
