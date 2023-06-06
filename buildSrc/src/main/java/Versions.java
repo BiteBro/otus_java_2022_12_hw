@@ -13,6 +13,7 @@ public interface Versions {
     String neo4j = "5.7.0";
     String jedis = "4.3.2";
 
+
     String jetty = "11.0.14";
     String freemarker = "2.3.32";
 
@@ -23,4 +24,5 @@ public interface Versions {
     String bootstrap = "5.2.3";
     String springDocOpenapiUi = "2.0.2";
     String jsr305 = "3.0.2";
+
 }
