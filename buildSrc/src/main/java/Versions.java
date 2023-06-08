@@ -24,5 +24,4 @@ public interface Versions {
     String bootstrap = "5.2.3";
     String springDocOpenapiUi = "2.0.2";
     String jsr305 = "3.0.2";
-
 }
