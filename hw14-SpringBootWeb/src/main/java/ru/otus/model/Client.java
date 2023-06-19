@@ -3,68 +3,68 @@ package ru.otus.model;
 import jakarta.annotation.Nonnull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceCreator;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.domain.Persistable;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.util.List;
+import java.util.Set;
 
 @Table(name = "client")
-public class Client {
+public class Client implements Persistable<Long> {
 
     @Id
     @Column("id")
-    @Nonnull
-    private Long id;
-    @Nonnull
-    private String name;
+    private final Long id;
+    private final String name;
 
     @MappedCollection(idColumn = "client_id")
-    private Address address;
-    @MappedCollection(idColumn = "client_id", keyColumn = "id")
-    private List<Phone> numbers;
-
-    public Client() {
-    }
+    private final Address address;
+    @MappedCollection(idColumn = "client_id")
+    private final Set<Phone> numbers;
+    @Transient
+    private final boolean isNew;
 
     @PersistenceCreator
-    public Client(Long id, String name, Address address, List<Phone> numbers) {
+    private Client(Long id, String name, Address address, Set<Phone> numbers) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.numbers = numbers;
+        this.isNew = false;
     }
 
-    public Client(String name, Address address, List<Phone> numbers) {
-        this(null, name, address, numbers);
+    public Client(Long id, String name, Address address, Set<Phone> numbers, boolean isNew) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.numbers = numbers;
+        this.isNew = isNew;
     }
 
+    @Override
     public Long getId() {
         return id;
+    }
+
+    @Override
+    public boolean isNew() {
+        return isNew;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
     public Address getAddress() {
         return address;
     }
 
-    public List<Phone> getNumbers() {
+    public Set<Phone> getNumbers() {
         return numbers;
-    }
-
-    public void setNumbers(List<Phone> numbers) {
-        this.numbers = numbers;
     }
 
     @Override
@@ -72,7 +72,8 @@ public class Client {
         return "Client{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", address=" + address +
+                ", numbers=" + numbers +
                 '}';
     }
-
 }

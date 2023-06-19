@@ -1,50 +1,64 @@
 package ru.otus.model;
 
-import jakarta.annotation.Nonnull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceCreator;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.domain.Persistable;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Table(name = "phone")
-public class Phone {
+public class Phone implements Persistable<Long> {
     @Id
     @Column("id")
-    @Nonnull
-    private Long id;
+    private final Long id;
     @Column("client_id")
-    @Nonnull
-    private Long client_id;
-    @Nonnull
-    private String number;
+    private final Long clientId;
+    private final String number;
 
-    public Phone() {
-    }
+    @Transient
+    private final boolean isNew;
 
-    public Phone(String number) {
-        this(null, number, null);
+    public Phone(Long id, String number, boolean isNew) {
+        this.id = id;
+        this.clientId = null;
+        this.number = number;
+        this.isNew = isNew;
     }
 
     @PersistenceCreator
-    public Phone(Long id, String number, Long client_id) {
+    private Phone(Long id, Long clientId, String number) {
         this.id = id;
+        this.clientId = clientId;
         this.number = number;
-        this.client_id = client_id;
+        this.isNew = false;
+    }
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public boolean isNew() {
+        return isNew;
+    }
+
+    public Long getClientId() {
+        return clientId;
     }
 
     public String getNumber() {
         return number;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
     @Override
     public String toString() {
         return "Phone{" +
                 "id=" + id +
+                ", clientId=" + clientId +
                 ", number='" + number + '\'' +
+                ", isNew=" + isNew +
                 '}';
     }
 }

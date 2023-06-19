@@ -28,7 +28,7 @@
 <body>
 <h4>Создать нового клиента</h4>
 
-<form id="create-form" th:action="@{/client/save}" th:object="${client}" th:method="post" accept-charset="utf-8">
+<form id="create-form" th:action="@{/client/save}" th:object="${clientDTO}" th:method="post" accept-charset="utf-8">
 
     <div class="row">
         <label for="clientName">Name:</label>
