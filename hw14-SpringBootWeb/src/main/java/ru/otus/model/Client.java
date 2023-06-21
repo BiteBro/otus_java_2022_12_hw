@@ -1,58 +1,42 @@
 package ru.otus.model;
 
-import jakarta.annotation.Nonnull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceCreator;
-import org.springframework.data.annotation.Transient;
-import org.springframework.data.domain.Persistable;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
-import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.util.List;
 import java.util.Set;
 
 @Table(name = "client")
-public class Client implements Persistable<Long> {
-
+public class Client{
     @Id
     @Column("id")
     private final Long id;
     private final String name;
-
     @MappedCollection(idColumn = "client_id")
     private final Address address;
-    @MappedCollection(idColumn = "client_id")
-    private final Set<Phone> numbers;
-    @Transient
-    private final boolean isNew;
+    @MappedCollection(idColumn = "client_id", keyColumn = "sort_id")
+    private final List<Phone> numbers;
 
     @PersistenceCreator
-    private Client(Long id, String name, Address address, Set<Phone> numbers) {
+    private Client(Long id, String name, Address address, List<Phone> numbers) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.numbers = numbers;
-        this.isNew = false;
     }
 
-    public Client(Long id, String name, Address address, Set<Phone> numbers, boolean isNew) {
-        this.id = id;
+    public Client(String name, Address address, List<Phone> numbers) {
+        this.id = null;
         this.name = name;
         this.address = address;
         this.numbers = numbers;
-        this.isNew = isNew;
     }
 
-    @Override
     public Long getId() {
         return id;
-    }
-
-    @Override
-    public boolean isNew() {
-        return isNew;
     }
 
     public String getName() {
@@ -63,7 +47,7 @@ public class Client implements Persistable<Long> {
         return address;
     }
 
-    public Set<Phone> getNumbers() {
+    public List<Phone> getNumbers() {
         return numbers;
     }
 

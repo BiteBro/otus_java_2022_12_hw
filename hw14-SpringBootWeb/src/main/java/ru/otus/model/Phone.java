@@ -2,13 +2,11 @@ package ru.otus.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceCreator;
-import org.springframework.data.annotation.Transient;
-import org.springframework.data.domain.Persistable;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Table(name = "phone")
-public class Phone implements Persistable<Long> {
+public class Phone {
     @Id
     @Column("id")
     private final Long id;
@@ -16,14 +14,10 @@ public class Phone implements Persistable<Long> {
     private final Long clientId;
     private final String number;
 
-    @Transient
-    private final boolean isNew;
-
-    public Phone(Long id, String number, boolean isNew) {
-        this.id = id;
+    public Phone(String number) {
+        this.id = null;
         this.clientId = null;
         this.number = number;
-        this.isNew = isNew;
     }
 
     @PersistenceCreator
@@ -31,17 +25,10 @@ public class Phone implements Persistable<Long> {
         this.id = id;
         this.clientId = clientId;
         this.number = number;
-        this.isNew = false;
     }
 
-    @Override
     public Long getId() {
         return id;
-    }
-
-    @Override
-    public boolean isNew() {
-        return isNew;
     }
 
     public Long getClientId() {
@@ -58,7 +45,6 @@ public class Phone implements Persistable<Long> {
                 "id=" + id +
                 ", clientId=" + clientId +
                 ", number='" + number + '\'' +
-                ", isNew=" + isNew +
                 '}';
     }
 }

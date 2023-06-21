@@ -9,17 +9,14 @@ import org.springframework.web.servlet.view.RedirectView;
 import ru.otus.model.Address;
 import ru.otus.model.Client;
 import ru.otus.model.Phone;
-import ru.otus.model.dto.AddressDTO;
 import ru.otus.model.dto.ClientDTO;
 import ru.otus.model.dto.PhoneDTO;
 import ru.otus.services.DBServiceClient;
 
 import java.util.List;
-import java.util.Set;
 
 @Controller
 public class AppControllers {
-
     private final DBServiceClient repo;
 
     public AppControllers(DBServiceClient repo) {
@@ -35,17 +32,19 @@ public class AppControllers {
     public String clientsListView(Model model) {
         List<Client> clients = repo.getClients();
         model.addAttribute("clientsList", clients);
-
-        ClientDTO clientDTO = new ClientDTO("", new AddressDTO(), List.of(new PhoneDTO(), new PhoneDTO()));
-
-        model.addAttribute("clientDTO", clientDTO);
+        ClientDTO clientDTO = new ClientDTO("test", new Address("test"));
+        PhoneDTO phoneDTO = new PhoneDTO("test", "test");
+        model.addAttribute("phones", phoneDTO);
+        model.addAttribute("client", clientDTO);
         return "clients";
     }
 
     @PostMapping({"/client/save"})
-    public RedirectView clientSave(@ModelAttribute Client client) {
+    public RedirectView clientSave(@ModelAttribute ClientDTO client, @ModelAttribute PhoneDTO phones) {
+        Client clientSaved = new Client(client.name(), client.address(),
+                List.of(new Phone(phones.firstNumber()), new Phone(phones.firstNumber())));
         System.out.println(client);
-        //repo.saveClient(client);
-        return new RedirectView("/clients");
+        repo.saveClient(clientSaved);
+        return new RedirectView("/clients", true);
     }
 }

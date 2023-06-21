@@ -1,5 +1,7 @@
 package ru.otus.services;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import ru.otus.model.Client;
 import ru.otus.repository.ClientRepository;
@@ -9,6 +11,7 @@ import java.util.List;
 
 @Service
 public class DBServiceClientImpl implements DBServiceClient {
+    private static final Logger log = LoggerFactory.getLogger(DBServiceClientImpl.class);
     private final ClientRepository repository;
 
     public DBServiceClientImpl(ClientRepository repository) {
@@ -17,14 +20,17 @@ public class DBServiceClientImpl implements DBServiceClient {
 
     @Override
     public Client saveClient(Client client) {
-        return repository.save(client);
+        var savedClient = repository.save(client);
+        log.info("saved client: {}", savedClient);
+        return savedClient;
     }
 
     @Override
     public List<Client> getClients() {
-        List<Client> clients = new ArrayList<>();
-        repository.findAll().forEach(clients::add);
-        return clients;
+        List<Client> clientList = new ArrayList<>();
+        repository.findAll().forEach(clientList::add);
+        log.info("clientList:{}", clientList);
+        return clientList;
     }
 
 }

@@ -9,35 +9,25 @@ import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Table(name = "address")
-public class Address implements Persistable<Long>{
+public class Address{
     @Id
     @Column("client_id")
     private final Long id;
     private final String street;
-    @Transient
-    private final boolean isNew;
 
-    public Address(Long id, String street, boolean isNew) {
-        this.id = id;
+    public Address(String street) {
+        this.id = null;
         this.street = street;
-        this.isNew = isNew;
     }
 
     @PersistenceCreator
     private Address(Long id, String street) {
         this.id = id;
         this.street = street;
-        this.isNew = false;
     }
 
-    @Override
     public Long getId() {
         return id;
-    }
-
-    @Override
-    public boolean isNew() {
-        return isNew;
     }
 
     public String getStreet() {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml">
 <head>
     <title>Клиенты</title>
     <meta charset="UTF-8"/>
@@ -27,25 +27,22 @@
 
 <body>
 <h4>Создать нового клиента</h4>
-
-<form id="create-form" th:action="@{/client/save}" th:object="${clientDTO}" th:method="post" accept-charset="utf-8">
-
+<form id="create-form" th:action="@{/client/save}" th:object="${client}" th:method="post" accept-charset="utf-8">
     <div class="row">
         <label for="clientName">Name:</label>
         <input id="clientName" type="text" name = "name" th:value="*{name}" placeholder="Введите имя клиента"/>
         <label for="clientAddress">Address:</label>
         <input id="clientAddress" type="text" name = "address" th:value="*{address.street}" placeholder="Введите адрес клиента"/>
-
         <label for="firstPhone">First phone:</label>
-        <input id="firstPhone" type="text" name = "phone" th:field="*{numbers[0].number}" placeholder="Введите основной номер телефона клиента"/>
+        <input id="firstPhone" type="text" name = "firstNumber" th:value="${phones.firstNumber}" placeholder="Введите основной номер телефона клиента"/>
         <label for="secondPhone">Second phone:</label>
-        <input id="secondPhone" type="text" name = "phone" th:field="*{numbers[1].number}" placeholder="Введите запасной номер телефона клиента"/>
+        <input id="secondPhone" type="text" name = "secondNumber" th:value="${phones.secondNumber}" placeholder="Введите запасной номер телефона клиента"/>
     </div>
-
     <div class="row">
         <button type="submit">Save with form</button>
     </div>
 </form>
+<br>
 
 <h3>Клиенты:</h3>
 <table class="clients">
@@ -63,8 +60,10 @@
         <td th:text="${client.id}"></td>
         <td th:text="${client.name}"></td>
         <td th:text="${client.getAddress().getStreet()}"></td>
-        <td th:text="${client.numbers[0].number}"></td>
-        <td th:text="${client.numbers[1].number}"></td>
+        <p th:each="phone: ${client.numbers}">
+            <td th:text="${phone.number}"> </td>
+        </p>
+
     </tr>
     </tbody>
 </table>
