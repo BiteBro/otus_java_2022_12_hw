@@ -37,7 +37,9 @@ public class SensorDataProcessorBuffered implements SensorDataProcessor {
             if (!bufferedData.isEmpty()) {
                 List<SensorData> dataList = new ArrayList<>();
                 bufferedData.drainTo(dataList, bufferSize);
-                writer.writeBufferedData(dataList);
+                if (!dataList.isEmpty()){
+                    writer.writeBufferedData(dataList);
+                }
             }
         } catch (Exception e) {
             log.error("Ошибка в процессе записи буфера", e);
