@@ -17,4 +17,5 @@ include 'hw13-DI'
 include 'hw14-SpringBootWeb'
 include 'hw15-BaseSynchronization'
 include 'hw16-ConcurrentCollections'
+include 'hw17-gRPC'
 
