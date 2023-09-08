@@ -19,7 +19,5 @@ include 'hw15-BaseSynchronization'
 include 'hw16-ConcurrentCollections'
 include 'hw18-WebFluxChat'
 include 'hw18-WebFluxChat:client-service'
-findProject(':hw18-WebFluxChat:client-service')?.name = 'client-service'
 include 'hw18-WebFluxChat:datastore-service'
-findProject(':hw18-WebFluxChat:datastore-service')?.name = 'datastore-service'
 
