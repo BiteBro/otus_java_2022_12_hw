@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option java_package = "ru.otus";
+option java_multiple_files = true;
+
+message ClientRequest {
+  int32 beginValue = 1;
+  int32 endValue = 2;
+}
+
+message ServerResponse {
+  int32 number = 1;
+}
+
+service NumbersService {
+  rpc getNumber(ClientRequest) returns (stream ServerResponse) {};
+}
