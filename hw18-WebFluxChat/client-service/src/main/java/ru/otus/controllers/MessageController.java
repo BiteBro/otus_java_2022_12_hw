@@ -36,13 +36,9 @@ public class MessageController {
     @MessageMapping("/message.{roomId}")
     public void getMessage(@DestinationVariable String roomId, Message message) {
         logger.info("get message:{}, roomId:{}", message, roomId);
-        if(roomId.equals(ADMIN_ROOM)) {
+        if (roomId.equals(ADMIN_ROOM)) {
             logger.warn("Sending messages is prohibited from room {}", ADMIN_ROOM);
-        }else
-        if (roomId.equals("")){
-            logger.warn("Sending messages is prohibited from unknown room!");
-        }else {
-
+        } else {
             saveMessage(roomId, message)
                     .subscribe(msgId -> logger.info("message send id:{}", msgId));
             Message messagePayload = new Message(HtmlUtils.htmlEscape(message.messageStr()));
@@ -62,12 +58,11 @@ public class MessageController {
         }
         var roomId = parseRoomId(simpDestination);
 
-        if(roomId == ADMIN_ROOM) {
+        if (roomId == ADMIN_ROOM) {
             getAllMessages()
                     .doOnError(ex -> logger.error("getting messages for roomId:{} failed", roomId, ex))
                     .subscribe(message -> template.convertAndSend(simpDestination, message));
-        }
-        else {
+        } else {
             getMessagesByRoomId(roomId)
                     .doOnError(ex -> logger.error("getting messages for roomId:{} failed", roomId, ex))
                     .subscribe(message -> template.convertAndSend(simpDestination, message));
