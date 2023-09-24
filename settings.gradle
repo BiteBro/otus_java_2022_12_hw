@@ -18,4 +18,7 @@ include 'hw14-SpringBootWeb'
 include 'hw15-BaseSynchronization'
 include 'hw16-ConcurrentCollections'
 include 'hw17-gRPC'
+include 'hw18-WebFluxChat'
+include 'hw18-WebFluxChat:client-service'
+include 'hw18-WebFluxChat:datastore-service'
 

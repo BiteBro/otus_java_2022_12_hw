@@ -1,4 +1,5 @@
 public interface Versions {
+
     String guava = "31.1-jre";
     String jmh = "1.36";
     String asm = "9.2";
@@ -12,7 +13,6 @@ public interface Versions {
     String cassandra = "4.15.0";
     String neo4j = "5.7.0";
     String jedis = "4.3.2";
-
 
     String jetty = "11.0.14";
     String freemarker = "2.3.32";
@@ -28,4 +28,8 @@ public interface Versions {
     String errorProneAnnotations = "2.11.0";
     String tomcatAnnotationsApi = "6.0.53";
     String grpc = "1.44.1";
+
+    String wiremock = "3.0.0-beta-2";
+    String r2dbcPostgresql = "0.8.13.RELEASE";
+
 }
